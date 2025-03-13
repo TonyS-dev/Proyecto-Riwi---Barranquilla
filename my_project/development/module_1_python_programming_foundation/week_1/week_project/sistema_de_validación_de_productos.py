@@ -12,7 +12,7 @@ def handle_number_inputs(message, is_integer=False):
                 continue  #Regresa al inicio del ciclo
             
             #Verifica que el valor no sea negativo
-            if value >= 0:
+            if value > 0:
                 #Devuelve el valor como entero o flotante según se requiera
                 if is_integer:
                     return int(value)
