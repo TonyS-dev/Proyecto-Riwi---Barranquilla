@@ -41,12 +41,12 @@ def handle_discounts(message):
                     #Intenta convertir la entrada a un entero
                     value = int(input(message))
                     
-                    #Verifica que el descuento esté en el rango válido (1-99)
-                    if value > 0 and value < 100:
+                    #Verifica que el descuento esté en el rango válido (0-100)
+                    if value >= 0 and value <= 100:
                         print("==>> Descuento correctamente asignado.")
                         return value
                     else:
-                        print("*** El descuento tiene que ser de 1 a 99 por ciento. Inténtalo de nuevo. ***")
+                        print("*** El descuento tiene que ser de 0 a 100 por ciento. Inténtalo de nuevo. ***")
                 except ValueError:
                     #Captura el error si la entrada no es un número válido
                     print("*** Cantidad invalida. Ingresa un numero valido. ***")
@@ -63,56 +63,57 @@ def handle_discounts(message):
 
 # ----- PROGRAMA PRINCIPAL -----
 #
-# Programa para gestionar la compra de multiples productos con descuentos
-# Este sistema permite al usuario ingresar diferentes productos
+# Programa para gestionar la compra de multiples productos con cantidades y descuentos
+# Este sistema permite al usuario ingresar diferentes productos con sus cantidades
 # Calcula el precio sub-total, total y aplica descuentos segun las preferencias
 #
 
-#Solicitud de la cantidad de productos a ingresar
-cantidad_productos = handle_number_inputs("!!! Por favor ingresa la cantidad de productos: ", is_integer=True)
-print("/// Cantidad de productos correctamente ingresada. ///")
+#Solicitud de la cantidad de productos diferentes a ingresar
+tipos_productos = handle_number_inputs("!!! Por favor ingresa la cantidad de tipos de productos: ", is_integer=True)
+print("/// Cantidad de tipos de productos correctamente ingresada. ///")
 
 #Inicialización de variables para almacenar productos y precio total
 precio_total = 0
 productos = []
 
 #Ciclo para solicitar la información de cada producto
-for i in range(cantidad_productos):
+for i in range(tipos_productos):
     #Creación de diccionario para almacenar información de cada producto
     producto = {
         "nombre": input(f"!!! Por favor ingresa el nombre del producto {i + 1}: "),
-        "precio": handle_number_inputs(f"!!! Por favor ingresa el precio del producto {i + 1}: ")
+        "precio": handle_number_inputs(f"!!! Por favor ingresa el precio unitario del producto {i + 1}: "),
+        "cantidad": handle_number_inputs(f"!!! Por favor ingresa la cantidad del producto {i + 1}: ", is_integer=True)
     }
+    
+    #Calculando el subtotal para este producto (precio * cantidad)
+    producto["subtotal"] = producto["precio"] * producto["cantidad"]
+    
     #Agregando el producto a la lista y actualizando el precio total
     productos.append(producto)
-    precio_total += producto["precio"]  #Acumulación del precio en el total
-    print("/// Precio de producto correctamente ingresado. ///")
+    precio_total += producto["subtotal"]  #Acumulación del subtotal en el total
+    print("/// Producto correctamente ingresado. ///")
 
 print("/// Productos ingresados correctamente ///")
 
 #Asignación para manejar el descuento que se va a aplicar
-descuento_producto = handle_discounts("°°° Procediendo con descuentos... ingresa el descuento (1-99): ")
+descuento_producto = handle_discounts("°°° Procediendo con descuentos... ingresa el descuento (0-100): ")
 
-#Asignación para el precio final de los productos con descuento aplicado, utilizando la formula basica de descuentos
+#Asignación para el precio final de los productos con descuento aplicado
 precio_con_descuento = precio_total - (precio_total * (descuento_producto / 100))
 
-#Impresión con formatos adecuados del resumen de:
-# 1. La cantidad de productos
-# 2. Listado de productos
-# 3. Precio sub-total de todos los produtos
-# 4. Descuento asignado a todos los productos
-# 5. Precio final con descuentos aplicados (si aplica)
+#Impresión con formatos adecuados del resumen
 print("\n------------- ORDEN DETALLES -------------")
-print(f"Numero de productos: #{cantidad_productos}")
+print(f"Tipos de productos: #{tipos_productos}")
 
 #Listado detallado de cada producto ingresado
 print("\n----------- LISTA DE PRODUCTOS -----------")
 for producto in productos:
-    print(f"{producto["nombre"]}: ${producto["precio"]:.2f}")
+    print(f"{producto['nombre']}: ${producto['precio']:.2f} x {producto['cantidad']} = ${producto['subtotal']:.2f}")
 print("------------------------------------------")
 
 #Sección para mostrar los precios
 print(f"Precio sub-total: ${precio_total:.2f}")
 print(f"Descuento seleccionado: {descuento_producto}%")
+print(f"Descuento aplicado: ${precio_total * (descuento_producto / 100):.2f}")
 print(f"Precio total: ${precio_con_descuento:.2f}")
 print("------------------------------------------")
