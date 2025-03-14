@@ -1,8 +1,6 @@
 # Script para administrar los 20 ejercicios de print sin condicional
 import importlib
 
-
-
 def switch(seleccion):
     match seleccion:
         case 1:

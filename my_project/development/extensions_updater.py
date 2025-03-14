@@ -1,6 +1,8 @@
 import subprocess
+import sys
+import time
 
-#Lista de extensiones que deseas instalar
+# Lista de extensiones que deseas instalar
 extensions = [
     "ms-python.python",  # Extensión de Python
     "formulahendry.auto-close-tag",  # Cierra automáticamente las etiquetas HTML/XML
@@ -27,18 +29,65 @@ extensions = [
     "viijay-kr.react-ts-css",  # Soporte para React, TypeScript y CSS
     "tonybaloney.vscode-pets",  # Mascotas en tu editor
     "ban.spellright",  # Corrector ortográfico
+    "cstrap.python-snippets", #Python snippets
+    "usernamehw.errorlens", #Errores
+    "mathematic.vscode-pdf", #Pdf-viewer
 ]
-#Función para instalar una extensión
-def install_extension(extension_id):
+
+# Función para instalar una extensión con mejor formato
+def install_extension(extension_id, index, total):
+    progress = f"[{index}/{total}]"
     try:
-        # Usamos 'snap run code' para ejecutar VSCode y pasarle el comando de instalación
-        subprocess.run(["snap", "run", "code", "--install-extension", extension_id], check=True)
-        print(f"Extensión {extension_id} instalada correctamente.")
-    except subprocess.CalledProcessError as e:
-        print(f"Error al instalar la extensión {extension_id}: {e}")
+        print(f"\n{'-' * 60}")
+        print(f"{progress} Instalando: {extension_id}")
+        
+        # Capture the output
+        result = subprocess.run(
+            ["code", "--install-extension", extension_id],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        
+        if result.returncode == 0:
+            print(f"{progress} ✅ Éxito: {extension_id}")
+        else:
+            print(f"{progress} ❌ Error: {extension_id}")
+            print(f"Detalles: {result.stderr.strip()}")
+            
+        return result.returncode == 0
+            
+    except Exception as e:
+        print(f"{progress} ❌ Error: {extension_id}")
+        print(f"Excepción: {str(e)}")
+        return False
 
-#Instalar todas las extensiones de la lista
-for extension in extensions:
-    install_extension(extension)
+# Contador de éxitos y fallos
+success_count = 0
+failure_count = 0
 
-print("Todas las extensiones han sido procesadas.")
+# Instalar todas las extensiones de la lista
+total = len(extensions)
+print(f"\n{'=' * 60}")
+print(f"INSTALANDO {total} EXTENSIONES")
+print(f"{'=' * 60}")
+
+start_time = time.time()
+
+for idx, extension in enumerate(extensions, 1):
+    if install_extension(extension, idx, total):
+        success_count += 1
+    else:
+        failure_count += 1
+
+end_time = time.time()
+duration = end_time - start_time
+
+print(f"\n{'=' * 60}")
+print(f"RESUMEN DE INSTALACIÓN")
+print(f"{'=' * 60}")
+print(f"Total de extensiones: {total}")
+print(f"✅ Instaladas correctamente: {success_count}")
+print(f"❌ Fallos: {failure_count}")
+print(f"⏱️ Tiempo total: {duration:.2f} segundos")
+print(f"{'=' * 60}\n")
