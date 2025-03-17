@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def control_numeros(mensaje, tipo=float, valor_minimo=0, valor_maximo=None):
     while True:
         try:
@@ -34,3 +35,7 @@ total_con_descuento = total_sin_descuento * (porcentaje_descuento / 100)
 total_final = total_sin_descuento - total_con_descuento
 
 print(f""" -----FACTURA------\n \n El nombre del producto es: {nombre_del_producto} \n Cantidad del producto es: {cantidad} \n Valor unitario del producto: {precio_unitario:.2f} \n Total sin descuento es: {total_sin_descuento:.2f} \n Total con descuento es: {total_final:.2f} \n Gracias por su compra. Vuelva pronto.""")
+=======
+lado = int(input("Ingrese un lado del cuadrado: "))
+print("El perimetro del cuadrado es: ", (lado * 4))
+>>>>>>> 34f0c9df6c73ff0d90ad5029d5f74e551e2325bf
