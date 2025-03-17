@@ -32,6 +32,8 @@ extensions = [
     "cstrap.python-snippets", #Python snippets
     "usernamehw.errorlens", #Errores
     "mathematic.vscode-pdf", #Pdf-viewer
+    "frhtylcn.pythonsnippets" #Python snippets
+    "tomoki1207.pdf" #Pdf viewer
 ]
 
 # Función para instalar una extensión con mejor formato
