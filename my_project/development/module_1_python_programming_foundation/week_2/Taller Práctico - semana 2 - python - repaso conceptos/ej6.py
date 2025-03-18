@@ -4,3 +4,16 @@
 # instrucción. Al final, el programa debe mostrar la cantidad total de vocales encontradas en la 
 # cadena de texto. 
  
+sentence = input("Por favor ingresa una frase: ")
+vowels = []
+vowels_quantity = 0
+for character in sentence:
+    if character in "aeiou":
+        vowels.append(character)
+        vowels_quantity += 1
+        print(f"{character} es una Vocal")
+    elif character in " ":
+        print("Espacio en blanco encontrado, deteniendo programa...")
+        break
+
+print(f"\nHubo {vowels_quantity} vocales, las cuales fueron: \n{vowels}")
