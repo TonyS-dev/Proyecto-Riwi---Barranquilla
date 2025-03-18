@@ -8,7 +8,7 @@ sentence = input("Por favor ingresa una frase: ")
 vowels = []
 vowels_quantity = 0
 for character in sentence:
-    if character in "aeiou":
+    if character in "aeiouAEIOU":
         vowels.append(character)
         vowels_quantity += 1
         print(f"{character} es una Vocal")
