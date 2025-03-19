@@ -1,77 +1,48 @@
-#Función para manejar y verificar correctamente todas las entradas númericas, sean int o float
-# def handle_number_inputs(message, is_integer=False):
-#     #Ciclo infinito que se ejecuta hasta que se ingrese un valor válido
-#     while True:
-#         try:
-#             #Intenta convertir la entrada del usuario a un número flotante
-#             value = float(input(message))
-            
-#             #Verifica si el valor debe ser entero y si tiene decimales
-#             if is_integer and value != int(value):
-#                 print("\n*** El numero no puede ser decimal. Intentalo de nuevo. ***")
-#                 continue  #Regresa al inicio del ciclo
-            
-#             #Verifica que el valor no sea negativo
-#             if value >= 0:
-#                 #Devuelve el valor como entero o flotante según se requiera
-#                 if is_integer:
-#                     return int(value)
-#                 else:
-#                     return value
-#             else:
-#                 print("\n*** El numero no puede ser negativo. Inténtalo de nuevo. ***")
-#         except ValueError:
-#             #Captura el error si la entrada no es un número válido
-#             print("\n*** Cantidad invalida. Ingresa un numero valido. ***")
-
-def handle_grade_list(message):
+def control_notas(message):
     global lista_notas
     while True:
+        # Solicitar entrada al usuario
+        entrada = input(message)
+        
         try:
-            #
-            values = input(message)
-
-            if values.find(",") < 1 and values.find(" ") >= 1:
-                print("Por favor utilice comas para separar las calificaciones ex: 25, 30")
+            # Caso especial: verificar si es un solo número
+            if "," not in entrada:
+                # El usuario ingresó un solo valor
+                print("Por favor ingresa al menos dos calificaciones separadas por comas.")
                 continue
+                
+            # Procesar entrada normal con comas
+            valores = [valor.strip() for valor in entrada.split(',') if valor.strip()]
 
-            values = values.replace(" ","").split(",")
-            
-            lista_notas = [float(value) for value in values]
-            if len(lista_notas) <= 1:
-                print("Por favor ingresa más de una calificación")
+            if len(valores) < 2:
+                print("Por favor ingresa al menos dos calificaciones válidas.")
                 continue
-
-            notas_validas = False
-            for nota in lista_notas:
-                if nota < 0 or nota > 100:
-                    print("Por favor ingresa una nota entre 0 y 100")
-                    notas_validas = False
-                    break
-                else:
-                    notas_validas = True
+                
+            lista_notas = [float(valor) for valor in valores]
             
-            if notas_validas:
-                return lista_notas
+            # Verificar que todos estén en rango
+            if any(nota < 0 or nota > 100 for nota in lista_notas):
+                print("Por favor ingresa notas entre 0 y 100")
+                continue
+                
+            return lista_notas
                 
         except ValueError:
-            #Captura el error si la entrada no es un número válido
-            print("\n*** Cantidad invalida. Ingresa un numero valido. ***")
+            print("\n*** Cantidad inválida. Ingresa números válidos. ***")
 
 def show_menu():
     global salir
-    print(f"\n\n\nLista de notas actuales: {lista_notas}")
+    print(f"\nLista de notas actuales: {lista_notas}")
 
-    print("""\n Qué desea hacer? 
+    print("""  Qué desea hacer? 
     1: Ingresar una nueva lista de notas
     2: Calcular promedio
-    3: Comparar valor mayor a
+    3: Comparar notas mayor qué
     4: Buscar frecuencia de una calificación especifica
-    
     5: Salir""")
     
     option = input()
-    if option in ("1"): handle_grade_list("Por favor ingresa la nueva lista de notas (separads por comas): ")
+    if option in ("1"): control_notas("Por favor ingresa la nueva lista de notas (separadas por comas): ")
     elif option in ("2"): calcular_promedio() 
     elif option in ("3"): comparar_valor()
     elif option in ("4"): buscar_frecuencia()
@@ -79,15 +50,41 @@ def show_menu():
     else: print('*** Respuesta invalida. Debes responder de "1" a "5". ***')
 
 def calcular_promedio():
-    print("2")
+    print(f"{'*' * 40}")
+    print(f"De las notas: {lista_notas}")
+    print(f"El promedio es: ", sum(lista_notas) / len(lista_notas))
+    print(f"{'*' * 40}")
+    continuar()
 
 def comparar_valor():
-    print("3")
-
+    valor_comparativo = float(input("Ingrese un valor para comparar que notas son mayores a él: "))
+    notas_mayores = []
+    for nota in lista_notas:
+        if nota > valor_comparativo:
+            notas_mayores.append(nota)
+    print(f"{'*' * 40}")
+    print(f"De las notas: {lista_notas}")
+    print(f"Las notas mayores a {valor_comparativo} son: {notas_mayores}")
+    print(f"{'*' * 40}")
+    continuar()
 
 def buscar_frecuencia():
     print("4")
 
+def continuar():
+    global salir
+    user_input = input("Desea continuar? (Si/No): ")
+    if user_input.lower() in ["si", "s", "sí"]:
+            print("°°° Continuando... °°°")
+           
+        #Verifica si la respuesta es negativa
+    elif user_input.lower() in ["no", "n"]:
+        print("°°° Finalizando programa... °°°")
+        salir = True ; return salir
+    
+    else:
+        #Mensaje de error si la respuesta no es reconocida
+        print('*** Respuesta invalida. Debes responder "si" o "no". ***')
 
 # ----- PROGRAMA PRINCIPAL -----
 #
@@ -105,10 +102,9 @@ def buscar_frecuencia():
 # ✅ Solicitar una calificación específica a buscar para verificar y contar cuántas veces aparece esa calificación específica
 # ✅ Mostrar todos los resultados de manera clara y organizada
 
-# lista_notas = handle_grade_list("!!! Por favor ingresa la lista de notas separadas por comas (,): ")
-# print("\nNotas ingresadas correctamente, son las siguientes: ")
-# print(lista_notas)
 lista_notas = []
+salir = False
+control_notas("!!! Por favor ingresa las notas separadas por comas (,): ")
 while True:
     show_menu()
     if salir:
