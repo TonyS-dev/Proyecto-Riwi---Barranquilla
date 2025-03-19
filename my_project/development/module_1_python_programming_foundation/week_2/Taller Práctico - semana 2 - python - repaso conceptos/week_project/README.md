@@ -12,7 +12,14 @@ Este programa permite registrar múltiples productos con su nombre, precio y can
 - **Formato de salida profesional**: Muestra un resumen detallado y bien organizado
 
 ## Tareas
-✅ Pedir al usuario blah blah
+✅ Verificar que en todo momento los datos ingresados son validos.
+✅ Pedir al usuario que ingrese en un solo input, una lista de notas (de 0 a 100), separadas por comas.
+✅ Convertir el input en una lista de numeros, para poder ejecutar las operaciones matematicas.
+✅ Solicitar y validar la calificación mínima aprobatoria
+✅ Calcular el promedio de todas las calificaciones y determinar si el usuario aprobó, (en base a la calificacion minima aprobatoria ingresada)
+✅ Preguntar al usuario por un valor comparativo, y determinar cuantas calificaciones son mayores que este valor.
+✅ Solicitar una calificación específica a buscar para verificar y contar cuántas veces aparece esa calificación específica
+✅ Mostrar todos los resultados de manera clara y organizada
 
 
 ## Output esperado

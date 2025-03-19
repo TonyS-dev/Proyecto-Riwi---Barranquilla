@@ -8,28 +8,51 @@ def handle_number_inputs(message, is_integer=False):
             
             #Verifica si el valor debe ser entero y si tiene decimales
             if is_integer and value != int(value):
-                print("*** El numero debe ser un entero. Intentalo de nuevo. ***")
+                print("\n*** El numero no puede ser decimal. Intentalo de nuevo. ***")
                 continue  #Regresa al inicio del ciclo
             
             #Verifica que el valor no sea negativo
-            if value > 0:
+            if value >= 0:
                 #Devuelve el valor como entero o flotante según se requiera
                 if is_integer:
                     return int(value)
                 else:
                     return value
             else:
-                print("*** El numero no puede ser negativo. Inténtalo de nuevo. ***")
+                print("\n*** El numero no puede ser negativo. Inténtalo de nuevo. ***")
         except ValueError:
             #Captura el error si la entrada no es un número válido
-            print("*** Cantidad invalida. Ingresa un numero valido. ***")
+            print("\n*** Cantidad invalida. Ingresa un numero valido. ***")
 
+def handle_grade_list(message):
+    while True:
+        try:
+            #
+            values = input(message)
 
+            if values.find(",") < 1 and values.find(" ") >= 1:
+                print("Por favor utilice comas para separar las calificaciones ex: 25, 30")
+                continue
+            elif values.find("-") >= 1:
+                print("Por favor ingrese numeros positivos")
+                continue
 
+            values = values.replace(" ","").split(",")
+            
+            lista_notas = [float(value) for value in values]
+            if len(lista_notas) <= 1:
+                print("Por favor ingresa más de una calificación")
+                continue
 
-
-
-
+            for nota in lista_notas:
+                if nota < 0 or nota > 100:
+                    print("Por favor ingresa una nota entre 0 y 100")
+                else:
+                    return lista_notas
+                
+        except ValueError:
+            #Captura el error si la entrada no es un número válido
+            print("\n*** Cantidad invalida. Ingresa un numero valido. ***")
 
 # ----- PROGRAMA PRINCIPAL -----
 #
@@ -38,51 +61,15 @@ def handle_number_inputs(message, is_integer=False):
 # Calcula el precio sub-total, total y aplica descuentos segun las preferencias
 #
 
-#Solicitud de la cantidad de productos diferentes a ingresar
-tipos_productos = handle_number_inputs("!!! Por favor ingresa la cantidad de tipos de productos: ", is_integer=True)
-print("/// Cantidad de tipos de productos correctamente ingresada. ///")
+# ✅ Verificar que en todo momento los datos ingresados son validos.
+# ✅ Pedir al usuario que ingrese en un solo input, una lista de notas (de 0 a 100), separadas por comas.
+# ✅ Convertir el input en una lista de numeros, para poder ejecutar las operaciones matematicas.
+# ✅ Solicitar y validar la calificación mínima aprobatoria
+# ✅ Calcular el promedio de todas las calificaciones y determinar si el usuario aprobó, (en base a la calificacion minima aprobatoria ingresada)
+# ✅ Preguntar al usuario por un valor comparativo, y determinar cuantas calificaciones son mayores que este valor.
+# ✅ Solicitar una calificación específica a buscar para verificar y contar cuántas veces aparece esa calificación específica
+# ✅ Mostrar todos los resultados de manera clara y organizada
 
-#Inicialización de variables para almacenar productos y precio total
-precio_total = 0
-productos = []
-
-#Ciclo para solicitar la información de cada producto
-for i in range(tipos_productos):
-    #Creación de diccionario para almacenar información de cada producto
-    producto = {
-        "nombre": input(f"!!! Por favor ingresa el nombre del producto {i + 1}: "),
-        "precio": handle_number_inputs(f"!!! Por favor ingresa el precio unitario del producto {i + 1}: "),
-        "cantidad": handle_number_inputs(f"!!! Por favor ingresa la cantidad del producto {i + 1}: ", is_integer=True)
-    }
-    
-    #Calculando el subtotal para este producto (precio * cantidad)
-    producto["subtotal"] = producto["precio"] * producto["cantidad"]
-    
-    #Agregando el producto a la lista y actualizando el precio total
-    productos.append(producto)
-    precio_total += producto["subtotal"]  #Acumulación del subtotal en el total
-    print("/// Producto correctamente ingresado. ///")
-
-print("/// Productos ingresados correctamente ///")
-
-
-
-
-
-
-#Impresión con formatos adecuados del resumen
-print("\n------------- ORDEN DETALLES -------------")
-print(f"Tipos de productos: #{tipos_productos}")
-
-#Listado detallado de cada producto ingresado
-print("\n----------- LISTA DE PRODUCTOS -----------")
-for producto in productos:
-    print(f"{producto['nombre']}: ${producto['precio']:.2f} x {producto['cantidad']} = ${producto['subtotal']:.2f}")
-print("------------------------------------------")
-
-#Sección para mostrar los precios
-print(f"Precio sub-total: ${precio_total:.2f}")
-
-
-
-print("------------------------------------------")
+lista_notas = handle_grade_list("!!! Por favor ingresa la lista de notas separadas por comas (,): ")
+print("\nNotas ingresadas correctamente, son las siguientes: ")
+print(lista_notas)
