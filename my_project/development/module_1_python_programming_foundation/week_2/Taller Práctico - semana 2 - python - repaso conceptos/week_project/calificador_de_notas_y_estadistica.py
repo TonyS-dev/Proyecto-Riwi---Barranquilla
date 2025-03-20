@@ -144,4 +144,3 @@ while True:
     mostrar_menu()
     if salir:
         break
-        
