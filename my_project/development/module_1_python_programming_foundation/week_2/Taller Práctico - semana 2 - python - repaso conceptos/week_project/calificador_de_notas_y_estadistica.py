@@ -105,15 +105,22 @@ def comparar_valor():
     continuar()
 
 def buscar_frecuencia():
-    valor_a_buscar = float(print("Por favor ingrese el valor a buscar dentro de las calificaciones: "))
+    nota_a_buscar = control_numeros("Por favor ingrese el valor a buscar dentro de las calificaciones: ")
+    notas_cantidad = 0
     for nota in lista_notas:
-        lista_notas.find()
+        if nota == nota_a_buscar:
+            notas_cantidad += 1
+        print(f"{'*' * 40}")
+    print(f"De las notas: {lista_notas}")
+    print(f"Se encontraron {notas_cantidad} nota(s) similares" * (notas_cantidad > 0) or f"No existen notas similares" * (notas_cantidad < 1))
+    print(f"{'*' * 40}")
 
 def continuar():
     global salir
     user_input = input("Desea continuar? (Si/No): ")
     if user_input.lower() in ["si", "s", "sí"]:
-            print("°°° Continuando... °°°")
+            print("°°° Continuando... °°°") #Debido a que mostrar_menu () está en un while true, siempre se ejecutará. 
+                                            #Por lo que se espera que se muestre y no es necesario llamar nuevamente mostrar menu.
 
     elif user_input.lower() in ["no", "n"]: #Verifica si la respuesta es negativa sea mayuscula o minuscula
         print("°°° Finalizando programa... °°°")
