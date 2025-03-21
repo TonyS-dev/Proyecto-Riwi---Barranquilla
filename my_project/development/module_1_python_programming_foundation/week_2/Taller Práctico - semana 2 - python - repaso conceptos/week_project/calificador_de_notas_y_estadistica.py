@@ -39,7 +39,7 @@ def control_numeros(message):
             if valor >= 0 and valor <= 100: #Verifica que el valor este entre (incluyendo) 0 y 100
                 return valor
             else:
-                print("*** El numero no puede ser negativo. Inténtalo de nuevo. ***")
+                print("*** Por favor ingresa notas entre 0 y 100. Inténtalo de nuevo. ***")
                 
         except ValueError: #Captura el error si la entrada no es un número válido
             print("*** Cantidad invalida. Ingresa un numero valido. ***")
@@ -99,7 +99,7 @@ def comparar_valor(): #yo utilizo un ciclo for en lugar de while, para iterar y 
             notas_mayores.append(nota)
     print(f"{'*' * 40}")
     print(f"De las notas: {lista_notas}")
-    print(f"Las notas mayores a {valor_comparativo} son: {notas_mayores}" * (len(notas_mayores) > 0) or f"No existen notas mayores a {valor_comparativo}" * (len(notas_mayores) < 1))
+    print(f"Se encontraron {len(notas_mayores)} notas mayor(es) \nLas notas mayores a {valor_comparativo} son: {notas_mayores}" * (len(notas_mayores) > 0) or f"No existen notas mayores a {valor_comparativo}" * (len(notas_mayores) < 1))
     print(f"{'*' * 40}")
     continuar()
 
