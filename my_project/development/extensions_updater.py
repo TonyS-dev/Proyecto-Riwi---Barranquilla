@@ -37,6 +37,7 @@ extensions = [
     "mhutchie.git-graph",
     "donjayamanne.githistory",
     "eamodio.gitlens",
+    "alexdima.git-branch",
 ]
 
 # Función para instalar una extensión con mejor formato
