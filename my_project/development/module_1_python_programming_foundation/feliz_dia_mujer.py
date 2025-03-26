@@ -2,14 +2,13 @@ import turtle
 import math
 import random
 
-
-
+########## OPCIONAL NO INCLUIR, SON MARGENES DE REFERENCIA ##########
 screen = turtle.Screen()
 screen.setup(800, 800)
 screen.title("Plano Cartesiano con Cuadrícula")
 
 tortuga = turtle.Turtle()
-tortuga.speed(0)  # Máxima velocidad
+tortuga.speed(0) 
 
 
 def dibujar_ejes():
@@ -48,23 +47,22 @@ def dibujar_cuadricula(espacio=50):
         tortuga.pendown()
         tortuga.goto(400, y)
         tortuga.penup()
-        if y != 0:  # Evitar escribir encima del eje X
+        if y != 0:  # para evitar escribir encima del eje X
             tortuga.goto(10, y)
             tortuga.write(str(y), align="left")
 
-
 dibujar_ejes()
 dibujar_cuadricula()
-
+########## OPCIONAL NO INCLUIR, SON MARGENES DE REFERENCIA ##########
 
 
 def imprimir_mensaje():
     # Mensaje para conmemorar el Día de la Mujer
     mensaje = """
-    Hoy celebramos la fuerza, valentía y sabiduría de todas las mujeres del mundo.
-    Gracias por su dedicación, amor y esfuerzo en cada paso que dan.
-    Que nunca dejen de soñar, luchar y brillar.
-    ¡Juntas son imparables!
+Hoy celebramos la fuerza, valentía y sabiduría de todas las mujeres del mundo.
+Gracias por su dedicación, amor y esfuerzo en cada paso que dan.
+Que nunca dejen de soñar, luchar y brillar.
+¡Juntas son imparables!
     """
     return mensaje
 
@@ -130,7 +128,7 @@ def dibujar_corazon():
     
     # Texto principal
     tortuga.penup()
-    tortuga.goto(-200, -130)
+    tortuga.goto(-165, -130)
     tortuga.pendown()
     tortuga.color("purple")
     tortuga.write("¡Feliz Día de la Mujer! 🌸", font=("Arial", 24, "bold"))
@@ -143,7 +141,7 @@ def dibujar_corazon():
         tortuga.color(color)
         tortuga.begin_fill()
         
-        # Diseño de estrella más irregular
+        # Diseño de estrella irregular
         for _ in range(5):
             tortuga.forward(size)
             tortuga.right(144)
@@ -156,8 +154,8 @@ def dibujar_corazon():
     colores_estrellas = ["#FFD700", "#FF69B4", "#00FFFF", "#7CFC00", "#FF4500"]
     
     for _ in range(10):
-        x = random.randint(-150, 150)
-        y = random.randint(50, 250)
+        x = random.randint(-200, 200)
+        y = random.randint(0, 300)
         size = random.randint(5, 20)
         color = random.choice(colores_estrellas)
         dibujar_estrella_personalizada(x, y, size, color)
@@ -172,8 +170,8 @@ def dibujar_corazon():
             fuego.penup()
             
             # Posición aleatoria
-            x = random.randint(-200, 200)
-            y = random.randint(-200, 200)
+            x = random.randint(-350, 350)
+            y = random.randint(-50, 350)
             
             # Color aleatorio
             color = random.choice(["#FF1493", "#00BFFF", "#32CD32", "#FF4500", "#9400D3"])
@@ -196,7 +194,7 @@ def dibujar_corazon():
     
     # Mensaje completo
     tortuga.penup()
-    tortuga.goto(-200, -230)
+    tortuga.goto(-250, -230)
     tortuga.pendown()
     tortuga.color("purple")
     tortuga.write(imprimir_mensaje(), font=("Arial", 12, "normal"))
