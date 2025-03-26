@@ -32,11 +32,11 @@ extensions = [
     "cstrap.python-snippets", #Python snippets
     "usernamehw.errorlens", #Errores
     "mathematic.vscode-pdf", #Pdf-viewer
-    "frhtylcn.pythonsnippets" #Python snippets
-    "tomoki1207.pdf" #Pdf viewer
-    "mhutchie.git-graph"
-    "donjayamanne.githistory"
-    "eamodio.gitlens"
+    "frhtylcn.pythonsnippets", #Python snippets
+    "tomoki1207.pdf", #Pdf viewer
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
 ]
 
 # Función para instalar una extensión con mejor formato
