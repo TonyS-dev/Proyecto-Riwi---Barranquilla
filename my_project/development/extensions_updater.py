@@ -38,6 +38,8 @@ extensions = [
     "donjayamanne.githistory",
     "eamodio.gitlens",
     "alexdima.git-branch",
+    "github.copilot-chat",
+    "github.copilot",
 ]
 
 # Función para instalar una extensión con mejor formato
